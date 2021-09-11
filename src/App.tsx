@@ -3,10 +3,11 @@ import {
     BrowserRouter as Router,
     Switch,
     Route
-} from "react-router-dom";
+} from 'react-router-dom';
 
 import Home from './pages/Home';
 import Header from './pages/Header';
+import About from './pages/About';
 
 export default function App() {
     return (
@@ -15,26 +16,15 @@ export default function App() {
                 <Header />
                 <div>
                     <Switch>
-                        <Route path="/about">
-                            <About />
-                        </Route>
-                        <Route path="/users">
-                            <Users />
-                        </Route>
                         <Route path="/">
                             <Home />
+                        </Route>
+                        <Route path="/about">
+                            <About />
                         </Route>
                     </Switch>
                 </div>
             </div>
         </Router>
     );
-}
-
-function About() {
-    return <h2>About</h2>;
-}
-
-function Users() {
-    return <h2>Users</h2>;
 }
