@@ -1,8 +1,7 @@
-import { Web3Provider } from "@ethersproject/providers"
 import { useWeb3React } from "@web3-react/core"
 
 export default function Mint() {
-    const { chainId, account } = useWeb3React<Web3Provider>()
+    const { chainId, account } = useWeb3React()
 
     return (
         <div>

@@ -8,31 +8,35 @@ import {
 import Home from './pages/Home';
 import Header from './pages/Header';
 import About from './pages/About';
-
 import { Web3ReactProvider } from '@web3-react/core';
 import { ExternalProvider, Web3Provider } from '@ethersproject/providers';
+import { ConnectedStateProvider } from './components/ConnectedStateProvider';
 
 function getLibrary(provider: ExternalProvider) {
-    return new Web3Provider(provider)
+    const library = new Web3Provider(provider)
+    library.pollingInterval = 12000
+    return library
 }
 
 export default function App() {
     return (
         <Router>
             <Web3ReactProvider getLibrary={getLibrary}>
-                <div>
-                    <Header />
+                <ConnectedStateProvider>
                     <div>
-                        <Switch>
-                            <Route path="/">
-                                <Home />
-                            </Route>
-                            <Route path="/about">
-                                <About />
-                            </Route>
-                        </Switch>
+                        <Header />
+                        <div>
+                            <Switch>
+                                <Route path="/" exact>
+                                    <Home />
+                                </Route>
+                                <Route path="/about">
+                                    <About />
+                                </Route>
+                            </Switch>
+                        </div>
                     </div>
-                </div>
+                </ConnectedStateProvider>
             </Web3ReactProvider>
         </Router>
     );
