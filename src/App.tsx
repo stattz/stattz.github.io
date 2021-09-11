@@ -9,22 +9,31 @@ import Home from './pages/Home';
 import Header from './pages/Header';
 import About from './pages/About';
 
+import { Web3ReactProvider } from '@web3-react/core';
+import { ExternalProvider, Web3Provider } from '@ethersproject/providers';
+
+function getLibrary(provider: ExternalProvider) {
+    return new Web3Provider(provider)
+}
+
 export default function App() {
     return (
         <Router>
-            <div>
-                <Header />
+            <Web3ReactProvider getLibrary={getLibrary}>
                 <div>
-                    <Switch>
-                        <Route path="/">
-                            <Home />
-                        </Route>
-                        <Route path="/about">
-                            <About />
-                        </Route>
-                    </Switch>
+                    <Header />
+                    <div>
+                        <Switch>
+                            <Route path="/">
+                                <Home />
+                            </Route>
+                            <Route path="/about">
+                                <About />
+                            </Route>
+                        </Switch>
+                    </div>
                 </div>
-            </div>
+            </Web3ReactProvider>
         </Router>
     );
 }

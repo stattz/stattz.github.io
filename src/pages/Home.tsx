@@ -1,3 +1,8 @@
+import Mint from "../components/wallet/Mint";
+
 export default function Home() {
-    return <h2>Hello World!</h2>;
+    return <div>
+        <h2>Hello World!</h2>
+        <Mint />
+    </div>;
 }

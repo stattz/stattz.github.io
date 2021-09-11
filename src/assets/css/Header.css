@@ -26,10 +26,12 @@ nav ul {
   padding: 0;
 }
 
-nav ul a {
+nav ul a, nav ul button {
   display: block;
   padding: 1em;
   color: white;
+  margin: 0;
+  background: none;
 }
 
 nav ul a:hover {
