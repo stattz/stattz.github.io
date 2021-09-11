@@ -7,7 +7,7 @@ export default function Header() {
         <ul>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About</Link></li>
-            <li><a href="https://github.com/stattz/stattz.github.io" target="_blank">GitHub</a></li>
+            <li><a href="https://github.com/stattz/stattz.github.io" rel="noreferrer" target="_blank">GitHub</a></li>
         </ul>
     </nav>;
 }
