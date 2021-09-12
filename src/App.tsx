@@ -7,10 +7,10 @@ import {
 
 import Home from './pages/Home';
 import Header from './pages/Header';
-import About from './pages/About';
+import Docs from './pages/Docs';
 import { Web3ReactProvider } from '@web3-react/core';
 import { ExternalProvider, Web3Provider } from '@ethersproject/providers';
-import { ConnectedStateProvider } from './components/ConnectedStateProvider';
+import { ConnectedStateProvider } from './components/wallet/ConnectedStateProvider';
 
 function getLibrary(provider: ExternalProvider) {
     const library = new Web3Provider(provider)
@@ -30,8 +30,8 @@ export default function App() {
                                 <Route path="/" exact>
                                     <Home />
                                 </Route>
-                                <Route path="/about">
-                                    <About />
+                                <Route path="/docs">
+                                    <Docs />
                                 </Route>
                             </Switch>
                         </div>
