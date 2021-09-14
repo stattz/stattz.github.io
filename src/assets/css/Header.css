@@ -60,10 +60,14 @@ nav ul a:hover {
     width: 100%;
   }
 
-  nav ul a {
+  nav ul button {
+      width: 100%;
+  }
+  
+  nav ul a, nav ul button {
     text-align: center;
     padding: 10px;
-    border-top: 1px solid white;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   nav ul li:last-of-type a {
