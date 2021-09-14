@@ -2,11 +2,12 @@ import { BigNumber } from "@ethersproject/bignumber";
 import { hexZeroPad } from "@ethersproject/bytes";
 import { Contract } from "@ethersproject/contracts";
 import { Web3Provider } from "@ethersproject/providers";
-import { formatUnits } from "@ethersproject/units";
+// import { formatUnits } from "@ethersproject/units";
 import { useWeb3React } from "@web3-react/core"
 import { useEffect, useState } from "react";
-import { NFTItem } from "./NFTItem";
-import Connect from "./Connect";
+import Loader from "../components/loader/Loader";
+import { NFTCollection } from "../components/nft/NFTCollection";
+import Connect from "../components/wallet/Connect";
 
 const abi = [
     // Read-Only Functions
@@ -25,11 +26,10 @@ const abi = [
 
 const addresses: { [id: number]: string; } = {
     1: "0x4f3b15e4421902c09895fB12c8e0B8821134eA39",
-    3: "0x4f3b15e4421902c09895fB12c8e0B8821134eA39",
-    4: "0xC5DC36F9558cABB2AEC6359d4D6aAFc3858f743c"
+    4: "0xBF1172547b1058A1Bab585468bb7EeeD62935d4C"
 };
 
-export default function Mint() {
+export default function NFTs() {
     const { chainId, account, library, active } = useWeb3React<Web3Provider>()
 
     const [symbol, setSymbol] = useState("")
@@ -41,6 +41,7 @@ export default function Mint() {
     const [tokens, setTokens] = useState<string[]>([])
 
     const [loaded, setLoaded] = useState(false)
+    const [visible, setVisible] = useState(false)
 
     let address = addresses[4]
 
@@ -55,6 +56,7 @@ export default function Mint() {
     const getDetails = async () => {
         if (!loaded && active && !!library) {
             setLoaded(true)
+            setVisible(false)
 
             const erc721 = new Contract(address, abi, library.getSigner())
 
@@ -75,6 +77,8 @@ export default function Mint() {
 
             setTokens(localTokens)
         }
+
+        setVisible(true)
     }
 
     const onClaim = async () => {
@@ -90,24 +94,36 @@ export default function Mint() {
     }
 
     if (!active) {
-        return <Connect />
+        return <div className="center">
+            <Connect />
+        </div>
     }
 
-    const renderOwnedTokens = () => {
-        return <div>
-            {tokens.map((token, index) => {
+    if (chainId !== 1 && chainId !== 4) {
+        return <div className="center">
+            <p>Only Miannet and Rinkeby are supported</p>
+        </div>
+    }
 
-                return <NFTItem key={index} tokenId={token} />
+    if (!visible) {
+        return <div className="center">
+            <Loader />
+        </div>
+    }
 
-            })}
+    const showHowToClaim = () => {
+        return <div className="center">
+            <p>
+                {name} ({symbol}) currently has {total.toNumber()}/{limit.toNumber()} tokens minted (Batch {batch.toNumber()})
+            </p>
+            <button onClick={onClaim}>Claim</button>
         </div>
     }
 
     return (
-        <div>
-            <p>{name} ({symbol}) currently has {total.toNumber()}/{limit.toNumber()} tokens minted (Batch {batch.toNumber()}). Mint fee {formatUnits(fee)}.</p>
-            {renderOwnedTokens()}
-            <button onClick={onClaim}>Claim</button>
+        <div className="center">
+            {showHowToClaim()}
+            {<NFTCollection tokenIds={tokens} />}
         </div>
     )
 }
