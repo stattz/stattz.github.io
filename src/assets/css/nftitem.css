@@ -33,3 +33,26 @@
     justify-content: center;
     gap: 10px;
 }
+
+.claim-button, .connect-button-p button {
+    background-color: #0085b6;
+    padding: 20px;
+}
+
+.claim-button:hover, .connect-button-p button:hover {
+    background-color: #555898;
+}
+
+.mint-link {
+    background-color: #cc1a6e;
+    color: white;
+    padding: 20px;
+    margin: 50px;
+    display: block;
+    border-radius: 10px;
+}
+
+.mint-link:hover {
+    text-decoration: none;
+    background-color: #ff005d;
+}

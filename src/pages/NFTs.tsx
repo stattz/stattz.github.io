@@ -2,12 +2,13 @@ import { BigNumber } from "@ethersproject/bignumber";
 import { hexZeroPad } from "@ethersproject/bytes";
 import { Contract } from "@ethersproject/contracts";
 import { Web3Provider } from "@ethersproject/providers";
-// import { formatUnits } from "@ethersproject/units";
 import { useWeb3React } from "@web3-react/core"
 import { useEffect, useState } from "react";
 import Loader from "../components/loader/Loader";
 import { NFTCollection } from "../components/nft/NFTCollection";
 import Connect from "../components/wallet/Connect";
+import { ContractAddresses } from "../services/contracts";
+import './../assets/css/nftitem.css'
 
 const abi = [
     // Read-Only Functions
@@ -24,11 +25,6 @@ const abi = [
     "function mint() payable",
 ];
 
-const addresses: { [id: number]: string; } = {
-    1: "0x4f3b15e4421902c09895fB12c8e0B8821134eA39",
-    4: "0xBF1172547b1058A1Bab585468bb7EeeD62935d4C"
-};
-
 export default function NFTs() {
     const { chainId, account, library, active } = useWeb3React<Web3Provider>()
 
@@ -43,10 +39,10 @@ export default function NFTs() {
     const [loaded, setLoaded] = useState(false)
     const [visible, setVisible] = useState(true)
 
-    let address = addresses[4]
+    let address = ContractAddresses[4]
 
     if (chainId !== undefined) {
-        address = addresses[chainId]
+        address = ContractAddresses[chainId]
     }
 
     useEffect(() => {
@@ -86,36 +82,55 @@ export default function NFTs() {
 
             let tx = await erc721.mint({ value: fee })
 
-            console.log(tx)
+            setVisible(false)
 
-            console.log(await tx.wait());
+            await tx.wait()
+            await getDetails()
+
+            setVisible(true)
         }
     }
 
     if (!active) {
         return <div className="center">
-            <Connect />
+            <h2>Come On In</h2>
+            <br />
+            <br />
+            <small className="center-text"><b>Note:</b> We recommend using MetaMask <br />or similar injected wallet.</small>
+            <br />
+            <br />
+            <p className="connect-button-p">
+                <Connect />
+            </p>
         </div>
     }
 
     if (chainId !== 1 && chainId !== 4) {
         return <div className="center">
-            <p>Only Miannet and Rinkeby are supported</p>
+            <h2>Only Miannet and Rinkeby are supported</h2>
         </div>
     }
 
     if (!visible) {
         return <div className="center">
+            <h3>One Moment Please</h3>
             <Loader />
         </div>
     }
 
     const showHowToClaim = () => {
         return <div className="center">
-            <p>
-                {name} ({symbol}) currently has {total.toNumber()}/{limit.toNumber()} tokens minted (Batch {batch.toNumber()})
-            </p>
-            <button onClick={onClaim}>Claim</button>
+            <h2>
+                {name} ({symbol}) currently {total.toNumber()} out of {limit.toNumber()} tokens minted
+            </h2>
+            <h3>
+                Current on Batch {batch.toNumber()}
+            </h3>
+            <br />
+            <small className="center-text"><b>Note:</b> In case you do not see your token after minting,<br /> please allow the Ethereum network to catch up and refresh the page.</small>
+            <br />
+            <button onClick={onClaim} disabled={limit.toNumber() <= total.toNumber()} className="claim-button">Mint NFT Token</button>
+            <br />
         </div>
     }
 
