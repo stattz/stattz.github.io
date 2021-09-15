@@ -41,7 +41,7 @@ export default function NFTs() {
     const [tokens, setTokens] = useState<string[]>([])
 
     const [loaded, setLoaded] = useState(false)
-    const [visible, setVisible] = useState(false)
+    const [visible, setVisible] = useState(true)
 
     let address = addresses[4]
 
@@ -76,9 +76,8 @@ export default function NFTs() {
             }
 
             setTokens(localTokens)
+            setVisible(true)
         }
-
-        setVisible(true)
     }
 
     const onClaim = async () => {

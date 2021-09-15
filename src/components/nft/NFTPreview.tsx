@@ -1,4 +1,4 @@
-import { useEffect, useState, FC } from "react";
+import { useEffect, useState, FC, useRef } from "react";
 
 import './../../assets/css/nftitem.css'
 
@@ -9,6 +9,8 @@ interface NFTItemProps {
 export const NFTPreview: FC<NFTItemProps> = props => {
     const [image, setImage] = useState("")
 
+    const unmounted = useRef(false);
+
     useEffect(() => {
         if (!props?.tokenId) {
             return
@@ -17,8 +19,14 @@ export const NFTPreview: FC<NFTItemProps> = props => {
         fetch(`https://us-central1-universal-stats-326006.cloudfunctions.net/metadata?tokenId=${props.tokenId}`)
             .then(results => results.json())
             .then(data => {
-                setImage(data.image)
+                if (!unmounted.current) {
+                    setImage(data.image)
+                }
             })
+
+        return () => {
+            unmounted.current = true
+        }
     });
 
     return <div className="nft">
