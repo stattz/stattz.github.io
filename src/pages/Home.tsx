@@ -9,7 +9,7 @@ const exampleNfts = [
 export default function Home() {
     return <div>
         <div className="center center-text">
-            <h4><a href="https://discord.gg/u89tDPVXHx" target="_blank" rel="noreferrer">Discord</a> <a href="https://twitter.com/HansKeebler" target="_blank" rel="noreferrer">Twitter</a></h4>
+            <h4><a href="https://discord.gg/u89tDPVXHx" target="_blank" rel="noreferrer">Discord</a> <a href="https://twitter.com/HansKeebler" target="_blank" rel="noreferrer">Twitter</a> <a href="https://opensea.io/collection/universal-stats" target="_blank" rel="noreferrer">OpenSea</a></h4>
             <h2>Scalable and Useful Multi-Purpose NFT</h2>
             <br />
             <br />
