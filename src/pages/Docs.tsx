@@ -79,6 +79,6 @@ export default function Docs() {
 
         <h2>Get Involved</h2>
 
-        <p>All of the code for this project is free and open source, feel free to joint our community. We welcome new members to our <a href="https://discord.gg/u89tDPVXHx" target="_blank" rel="noreferrer">Discord</a> channel also <a href="https://github.com/stattz" target="_blank" rel="noreferrer">GitHub</a> issues or pull requests are always welcome!</p>
+        <p>All of the code for this project is free and open source, feel free to joint our community. We welcome new members to our <a href="https://discord.gg/u89tDPVXHx" target="_blank" rel="noreferrer">Discord</a> channel also <a href="https://github.com/stattz" target="_blank" rel="noreferrer">GitHub</a> issues or pull requests are always appreciated!</p>
     </div>;
 }
