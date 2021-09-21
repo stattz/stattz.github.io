@@ -17,7 +17,7 @@ export default function Home() {
                 A unique NFT that uses pseudo-random token ID as its metadata value. This token does not assume or enforce any particular usage scenarios. We facilitate countless integration opportunities.
             </h4>
             <br />
-            <h4>For more information, read the <a href="/docs">docs</a>.</h4>
+            <h4>For more information, read the <a href="/#/docs">docs</a>.</h4>
             <h1><Link to="/nfts" className="mint-link">Mint a New One</Link></h1>
             <h3>Usage Examples</h3>
             {<NFTCollection tokenIds={exampleNfts} />}
